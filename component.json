@@ -1,5 +1,8 @@
 {
   "name": "accordion",
   "scripts": ["index.js"],
-  "local": ["utils", "events"]
+  "dependencies": {
+    "nib-components/utils": "0.0.*",
+    "nib-components/emitter": "0.0.*"
+  }
 }
