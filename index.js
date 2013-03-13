@@ -1,5 +1,8 @@
 var utils = require('utils');
-var events = require('events');
+var Emitter = require('emitter');
+var $ = require('jquery');
+var _ = require('underscore');
+
 var hasTransitions = utils.hasTransitions();
 
 var Accordion = function(options){
@@ -19,6 +22,8 @@ var Accordion = function(options){
   }
 };
 
+Emitter(Accordion.prototype);
+
 Accordion.create = function(selector, context) {
   var items = [];
   $(selector, context).each(function(){
@@ -31,7 +36,7 @@ Accordion.create = function(selector, context) {
   return items;
 };
 
-_.extend(Accordion.prototype, events, {
+_.extend(Accordion.prototype, {
   openClass: 'is-open',
   closedClass: 'is-closed',
   buttonElement: '> .js-accordion-trigger',
@@ -91,7 +96,7 @@ _.extend(Accordion.prototype, events, {
         }, 50);
       }
 
-      self.trigger('close');
+      self.emit('close');
     }, 0);
 
     this.button.addClass(this.closedClass).removeClass(this.openClass);
@@ -107,7 +112,7 @@ _.extend(Accordion.prototype, events, {
     else {
       this.open();
     }
-    this.trigger('toggle', this.id);
+    this.emit('toggle', this.id);
   }
 });
 
