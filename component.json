@@ -1,0 +1,5 @@
+{
+  "name": "accordion",
+  "scripts": ["index.js"],
+  "local": ["utils", "events"]
+}
