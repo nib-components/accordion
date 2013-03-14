@@ -1,11 +1,8 @@
 {
   "name": "accordion",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "scripts": ["index.js"],
   "dependencies": {
-    "nib-components/utils": "0.0.*",
-    "nib-components/jquery": "1.9.*",
-    "nib-components/backbone": "0.9.9",
-    "nib-components/underscore": "1.4.*"
+    "nib-components/utils": "0.0.1"
   }
 }

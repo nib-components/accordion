@@ -1,7 +1,4 @@
 var utils = require('utils');
-var $ = require('jquery');
-var _ = require('underscore');
-var Backbone = require('backbone');
 var Events = Backbone.Events;
 
 var hasTransitions = utils.hasTransitions();
