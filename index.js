@@ -28,7 +28,7 @@ Accordion.create = function(selector, options) {
       this.setAttribute('data-accordion-loaded', true);
       items.push(accordion);
       if(options.afterEach) {
-        afterEach.call(this, accordion);
+        options.afterEach.call(this, accordion);
       }
     }
   });
