@@ -20,13 +20,16 @@ var Accordion = function(options){
   }
 };
 
-Accordion.create = function(selector, context) {
+Accordion.create = function(selector, options) {
   var items = [];
-  $(selector, context).each(function(){
+  $(selector, options.context).each(function(){
     if(this.hasAttribute('data-accordion-loaded') === false) {
       var accordion = new Accordion({ el: $(this) });
       this.setAttribute('data-accordion-loaded', true);
       items.push(accordion);
+      if(options.afterEach) {
+        afterEach.call(this, accordion);
+      }
     }
   });
   return items;
