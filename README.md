@@ -21,6 +21,8 @@ Accordion.create('.js-accordion', {
 });
 ```
 
+Example markup
+
 ```
 <div class="accordion js-accordion">
   <div class="js-accordion-trigger">Click me</div>
