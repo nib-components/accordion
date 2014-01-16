@@ -19,6 +19,7 @@ Accordion.create('.js-accordion');
 Accordion.create('.js-accordion', { 
   context: this.el 
 });
+```
 
 ```
 <div class="accordion js-accordion">
