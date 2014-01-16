@@ -22,6 +22,7 @@ var Accordion = function(options){
 
 Accordion.create = function(selector, options) {
   var items = [];
+  var options = options || {};
   $(selector, options.context).each(function(){
     if(this.hasAttribute('data-accordion-loaded') === false) {
       var accordion = new Accordion({ el: $(this) });
@@ -48,7 +49,7 @@ _.extend(Accordion.prototype, Events, {
     this.isOpen = true;
     var bodyEl = this.body;
 
-    // We need to disable the transitions before setting the 
+    // We need to disable the transitions before setting the
     // height to auto so that the transition doesn't flicker
     // and start from the start again.
     // We set the height to auto after the transitions so that
@@ -61,7 +62,7 @@ _.extend(Accordion.prototype, Events, {
 
     if( hasTransitions ) {
       var bodyHeight = bodyEl[0].scrollHeight;
-      this.body.css('height', bodyHeight);      
+      this.body.css('height', bodyHeight);
     }
 
     this.el.addClass(this.openClass).removeClass(this.closedClass);
