@@ -3,9 +3,11 @@ accordion
 
 Trigger show and hide of content.
 
-Used in conjunction with [nib-styles/accordion](https://github.com/nib-styles/accordion)
+Used in conjunction with [nib-styles/accordion](https://github.com/nib-styles/accordion) styles component.
 
-```component install nib-styles/accordion```
+```
+component install nib-styles/accordion
+```
 
 ##API
 
