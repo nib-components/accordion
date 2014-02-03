@@ -19,6 +19,25 @@ var Accordion = function(options){
     this.close();
   }
 
+  // --- adding a is-transitioning class for the backend devs to test ---
+
+  var self = this;
+
+  function transitionStarted() {
+    self.el.addClass('is-transitioning');
+  }
+
+  function transitionFinished() {
+    self.el.removeClass('is-transitioning');
+  }
+
+  this
+    .on('open', transitionStarted)
+    .on('close', transitionStarted)
+    .on('opened', transitionFinished)
+    .on('closed', transitionFinished)
+  ;
+
 };
 
 Accordion.create = function(selector, options) {
