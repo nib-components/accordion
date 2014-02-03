@@ -18,6 +18,7 @@ var Accordion = function(options){
   else {
     this.close();
   }
+
 };
 
 Accordion.create = function(selector, options) {
@@ -57,6 +58,7 @@ _.extend(Accordion.prototype, Events, {
     utils.afterTransition(bodyEl, function(){
       if( self.isOpen ) {
         bodyEl.addClass('no-transitions').css('height', 'auto');
+        self.trigger('opened');
       }
     });
 
@@ -67,6 +69,8 @@ _.extend(Accordion.prototype, Events, {
 
     this.el.addClass(this.openClass).removeClass(this.closedClass);
     this.button.addClass(this.openClass).removeClass(this.closedClass);
+
+    self.trigger('open');
   },
   close: function(){
     var self = this;
@@ -94,6 +98,12 @@ _.extend(Accordion.prototype, Events, {
         setTimeout(function(){
           self.body.css('height', 0);
         }, 50);
+
+        utils.afterTransition(self.body, function(){
+          if( !self.isOpen ) {
+            self.trigger('closed');
+          }
+        });
       }
 
       self.trigger('close');

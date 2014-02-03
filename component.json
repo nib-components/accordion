@@ -1,8 +1,16 @@
 {
   "name": "accordion",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "scripts": ["index.js"],
   "dependencies": {
     "nib-components/utils": "0.0.1"
+  },
+  "development": {
+    "nib-styles/accordion": "0.2.0",
+    "nib-components/modernizr": "master",
+    "nib-components/underscore": "2cd0b495780f3cda38568d0ec0cdb78f4015a241",
+    "nib-components/jquery": "5454a916126a5f44af1085a8d5dccb96062d0ac4",
+    "nib-components/jquery-easing": "32bf222c33a279c97fcbcb5efa3a673148f34fa8",
+    "nib-components/backbone": "fcc49fa93891c1e87068efaa1e9b978fb6997fc1"
   }
 }

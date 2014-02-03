@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link href="../build/build.css" rel="stylesheet" type="text/css">
+    <script src="../build/build.js"></script>
+
+    <style>
+
+        .accordion {
+            padding: 10px;
+            background-color: #666666;
+        }
+
+        h4 {
+            margin-bottom: 0;
+        }
+
+        ul {
+            margin-top: 0;
+        }
+
+    </style>
+
+    <script>
+
+        require('underscore');
+        require('jquery');
+        require('backbone');
+        require('modernizr');
+
+        $(function() {
+
+            var Accordion = require('accordion');
+            var accordion = Accordion.create('.js-accordion')[0];
+
+            var $sink = $('.js-event-sink ul');
+
+            function printEvent(event) {
+                $sink.append('<li>'+event+'</li>');
+            }
+
+            accordion
+                .on('open', function() {
+                    printEvent('open');
+                })
+                .on('opened', function() {
+                    printEvent('opened');
+                })
+                .on('close', function() {
+                    printEvent('close');
+                })
+                .on('closed', function() {
+                    printEvent('closed');
+                })
+            ;
+
+        });
+
+    </script>
+
+</head>
+<body>
+
+    <h1>Accordion Example</h1>
+
+    <h4>Notes:</h4>
+    <p>Run <code>component install --dev && component build --dev</code> to build the scripts.</p>
+
+    <div class="accordion js-accordion">
+        <div class="js-accordion-trigger">Click me</div>
+        <div class="accordion__body js-accordion-body"> Show and hide me </div>
+    </div>
+
+    <div class="js-event-sink">
+        <h4>Events:</h4>
+        <ul></ul>
+    </div>
+
+</body>
+</html>
