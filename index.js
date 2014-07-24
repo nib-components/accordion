@@ -1,18 +1,17 @@
-var utils = require('utils');
-var Events = Backbone.Events;
-
-var hasTransitions = utils.hasTransitions();
+var emitter = require('emitter');
+var hasTransitions = require('has-transitions');
+var afterTransition = require('after-transition');
 
 var Accordion = function(options){
   this.el = options.el;
-  this.button = this.el.find(this.buttonElement);
-  this.body = this.el.find(this.bodyElement);
-  this.id = this.el.attr('data-accordion-id');
+  this.button = this.el.querySelector(this.buttonElement);
+  this.body = this.el.querySelector(this.bodyElement);
+  this.id = this.el.getAttribute('data-accordion-id');
 
-  this.el.on('click', this.buttonElement, _.bind(this._onTriggerClick, this));
+  this.button.addEventListener('click', this._onTriggerClick.bind(this));
 
   // Set the initial state
-  if( this.el.hasClass(this.openClass) ) {
+  if( this.el.classList.contains(this.openClass) ) {
     this.open();
   }
   else {
@@ -24,11 +23,11 @@ var Accordion = function(options){
   var self = this;
 
   function transitionStarted() {
-    self.el.addClass('is-transitioning');
+    self.el.classList.add('is-transitioning');
   }
 
   function transitionFinished() {
-    self.el.removeClass('is-transitioning');
+    self.el.classList.remove('is-transitioning');
   }
 
   this
@@ -43,10 +42,14 @@ var Accordion = function(options){
 Accordion.create = function(selector, options) {
   var items = [];
   var options = options || {};
-  $(selector, options.context).each(function(){
-    if(this.hasAttribute('data-accordion-loaded') === false) {
-      var accordion = new Accordion({ el: $(this) });
-      this.setAttribute('data-accordion-loaded', true);
+
+  var parent    = options.context ? options.context : document;
+  var elements  = Array.prototype.slice.call(parent.querySelectorAll(selector), 0);
+
+  elements.forEach(function(element){
+    if(element.hasAttribute('data-accordion-loaded') === false) {
+      var accordion = new Accordion({ el: element });
+      element.setAttribute('data-accordion-loaded', true);
       items.push(accordion);
       if(options.afterEach) {
         options.afterEach.call(this, accordion);
@@ -56,11 +59,11 @@ Accordion.create = function(selector, options) {
   return items;
 };
 
-_.extend(Accordion.prototype, Events, {
+Accordion.prototype = {
   openClass: 'is-open',
   closedClass: 'is-closed',
-  buttonElement: '> .js-accordion-trigger',
-  bodyElement: '> .js-accordion-body',
+  buttonElement: '.js-accordion-trigger', //needs to be the immediate child - nested doesn't work
+  bodyElement: '.js-accordion-body', //needs to be the immediate child - nested doesn't work
   isOpen: false,
 
 
@@ -74,22 +77,25 @@ _.extend(Accordion.prototype, Events, {
     // and start from the start again.
     // We set the height to auto after the transitions so that
     // the content inside of accordion can create more height.
-    utils.afterTransition(bodyEl, function(){
+    afterTransition(bodyEl, function(){
       if( self.isOpen ) {
-        bodyEl.addClass('no-transitions').css('height', 'auto');
-        self.trigger('opened');
+        bodyEl.classList.add('no-transitions');
+        bodyEl.style.height = 'auto';
+        self.emit('opened');
       }
     });
 
     if( hasTransitions ) {
-      var bodyHeight = bodyEl[0].scrollHeight;
-      this.body.css('height', bodyHeight);
+      var bodyHeight = bodyEl.scrollHeight;
+      this.body.style.height = bodyHeight;
     }
 
-    this.el.addClass(this.openClass).removeClass(this.closedClass);
-    this.button.addClass(this.openClass).removeClass(this.closedClass);
+    this.el.classList.add(this.openClass)
+    this.el.classList.remove(this.closedClass);
+    this.button.classList.add(this.openClass);
+    this.button.classList.remove(this.closedClass);
 
-    self.trigger('open');
+    self.emit('open');
   },
   close: function(){
     var self = this;
@@ -97,38 +103,40 @@ _.extend(Accordion.prototype, Events, {
 
     // We need to set the height of the body to a fixed pixel dimension
     // instead of auto as browsers can't transition from auto.
-    var bodyHeight = this.body.height();
+    var bodyHeight = window.getComputedStyle(this.body).getPropertyValue('height');
 
     if( hasTransitions ) {
-      this.body.css('height', bodyHeight);
+      this.body.style.height = bodyHeight;
     }
 
     // We wait until the end of the callstack to perform the transition
     // so that it actually happens. If we don't do this the accordion
     // will just close immediately.
     setTimeout(function(){
-      self.el.addClass(self.closedClass).removeClass(self.openClass);
+      self.el.classList.add(self.closedClass);
+      self.el.classList.remove(self.openClass);
 
       if( hasTransitions ) {
-        self.body.removeClass('no-transitions');
+        self.body.classList.remove('no-transitions');
 
         // Setting a tiny timeout so that Firefox correctly
         // applies the transition properties onto the element again
         setTimeout(function(){
-          self.body.css('height', 0);
+          self.body.style.height = 0;
         }, 50);
 
-        utils.afterTransition(self.body, function(){
+        afterTransition(self.body, function(){
           if( !self.isOpen ) {
-            self.trigger('closed');
+            self.emit('closed');
           }
         });
       }
 
-      self.trigger('close');
+      self.emit('close');
     }, 0);
 
-    this.button.addClass(this.closedClass).removeClass(this.openClass);
+    this.button.classList.add(this.closedClass);
+    this.button.classList.remove(this.openClass);
   },
   _onTriggerClick: function(event) {
     event.preventDefault();
@@ -141,8 +149,11 @@ _.extend(Accordion.prototype, Events, {
     else {
       this.open();
     }
-    this.trigger('toggle', this.id);
+    this.emit('toggle', this.id);
   }
-});
+};
+
+emitter(Accordion.prototype);
+
 
 module.exports = Accordion;

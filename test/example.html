@@ -3,7 +3,6 @@
 <head>
     <title></title>
     <link href="../build/build.css" rel="stylesheet" type="text/css">
-    <script src="../build/build.js"></script>
 
     <style>
 
@@ -20,44 +19,11 @@
             margin-top: 0;
         }
 
+        .accordion__body {
+            overflow: hidden;
+        }
+
     </style>
-
-    <script>
-
-        require('underscore');
-        require('jquery');
-        require('backbone');
-        require('modernizr');
-
-        $(function() {
-
-            var Accordion = require('accordion');
-            var accordion = Accordion.create('.js-accordion')[0];
-
-            var $sink = $('.js-event-sink ul');
-
-            function printEvent(event) {
-                $sink.append('<li>'+event+'</li>');
-            }
-
-            accordion
-                .on('open', function() {
-                    printEvent('open');
-                })
-                .on('opened', function() {
-                    printEvent('opened');
-                })
-                .on('close', function() {
-                    printEvent('close');
-                })
-                .on('closed', function() {
-                    printEvent('closed');
-                })
-            ;
-
-        });
-
-    </script>
 
 </head>
 <body>
@@ -76,6 +42,35 @@
         <h4>Events:</h4>
         <ul></ul>
     </div>
+
+    <script src="../build/build.js"></script>
+    <script>
+
+        var Accordion = require('accordion');
+        var accordion = Accordion.create('.js-accordion')[0];
+
+        var $sink = document.querySelector('.js-event-sink ul');
+
+        function printEvent(event) {
+            console.log(event);
+        }
+
+        accordion
+                .on('open', function() {
+                    printEvent('open');
+                })
+                .on('opened', function() {
+                    printEvent('opened');
+                })
+                .on('close', function() {
+                    printEvent('close');
+                })
+                .on('closed', function() {
+                    printEvent('closed');
+                })
+        ;
+
+    </script>
 
 </body>
 </html>
