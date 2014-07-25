@@ -34,14 +34,9 @@
     <h4>Notes:</h4>
     <p>Run <code>component install --dev && component build --dev</code> to build the scripts.</p>
 
-    <div class="accordion js-accordion">
+    <div class="accordion is-open js-accordion">
         <div class="js-trigger">Click me</div>
         <div class="accordion__body js-body"> Show and hide me </div>
-    </div>
-
-    <div class="js-event-sink">
-        <h4>Events:</h4>
-        <ul></ul>
     </div>
 
     <script src="../build/build.js"></script>
@@ -49,8 +44,6 @@
 
         var Accordion = require('accordion');
         var accordion = Accordion.create('.js-accordion')[0];
-
-        var $sink = document.querySelector('.js-event-sink ul');
 
         function printEvent(event) {
             console.log(event);

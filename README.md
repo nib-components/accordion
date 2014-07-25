@@ -21,7 +21,7 @@ Used in conjunction with [nib-styles/accordion](https://github.com/nib-styles/ac
 
 Example markup
 
-    <div class="accordion js-accordion">
+    <div class="accordion is-closed js-accordion">
       <div class="js-trigger">Click me</div>
       <div class="accordion__body js-body">
           Show and hide me
