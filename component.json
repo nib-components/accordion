@@ -8,6 +8,7 @@
     "digitaledgeit/js-transition-auto": "0.1.5"
   },
   "development": {
+    "chaijs/chai": "1.9.1",
     "nib-styles/accordion": "0.2.0"
   }
 }

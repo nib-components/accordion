@@ -89,6 +89,8 @@ Accordion.prototype = {
     var self    = this;
     this.isOpen = false;
 
+    this.el.classList.add(this.closedClass)
+    this.el.classList.remove(this.openClass);
     this.button.classList.add(this.closedClass);
     this.button.classList.remove(this.openClass);
 

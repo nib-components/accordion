@@ -1,7 +1,0 @@
-{
-  "name": "accordion",
-  "version": "0.0.4",
-  "dependencies": {
-    "utils": "https://ntlvmgit01/nib-components/utils.git#~0.0.1"
-  }
-}
