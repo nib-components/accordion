@@ -5,8 +5,7 @@
   "dependencies": {
     "nib-components/utils": "0.0.1",
     "component/emitter": "1.1.3",
-    "anthonyshort/has-transitions": "44c2400",
-    "anthonyshort/after-transition": "0.0.4"
+    "digitaledgeit/js-transition-auto": "0.1.5"
   },
   "development": {
     "nib-styles/accordion": "0.2.0"
