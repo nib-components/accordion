@@ -27,7 +27,7 @@ describe('Accordion', function(){
   });
 
   it('should have a trigger', function(){
-    expect(this.view.button).not.to.be.null;
+    expect(this.view.trigger).not.to.be.null;
   });
 
   it('should have a body', function(){
@@ -71,18 +71,18 @@ describe('Accordion', function(){
 
   it('should open', function(){
     this.view.open(); 
-    expect(this.view.button.classList.contains('is-open')).to.equal(true);
+    expect(this.view.trigger.classList.contains('is-open')).to.equal(true);
     expect(this.view.el.classList.contains('is-open')).to.equal(true);
-    expect(this.view.button.classList.contains('is-closed')).to.equal(false);
+    expect(this.view.trigger.classList.contains('is-closed')).to.equal(false);
     expect(this.view.el.classList.contains('is-closed')).to.equal(false);
   });
 
   it('should close', function(done){
     var self = this;
     this.view.once('close', function(){
-      expect(self.view.button.classList.contains('is-open')).to.equal(false);
+      expect(self.view.trigger.classList.contains('is-open')).to.equal(false);
       expect(self.view.el.classList.contains('is-open')).to.equal(false);
-      expect(self.view.button.classList.contains('is-closed')).to.equal(true);
+      expect(self.view.trigger.classList.contains('is-closed')).to.equal(true);
       expect(self.view.el.classList.contains('is-closed')).to.equal(true);
       done();    
     });

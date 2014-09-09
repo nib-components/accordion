@@ -2,14 +2,15 @@ var emitter = require('emitter');
 var transition = require('transition-auto');
 
 var Accordion = function(options){
-  this.el = options.el;
-  this.button = this.el.querySelector(this.buttonElement);
-  this.body = this.el.querySelector(this.bodyElement);
-  this.id = this.el.getAttribute('data-accordion-id');
+  this.el         = options.el;
+  this.id         = this.el.getAttribute('data-accordion-id');
+  this.trigger    = this.el.querySelector(this.triggerElement);
+  this.body       = this.el.querySelector(this.bodyElement);
+  this._disabled  = false;
 
-  this.button.addEventListener('click', this._onTriggerClick.bind(this));
-
-  this._disabled = false;
+  if (this.trigger) {
+    this.trigger.addEventListener('click', this._onTriggerClick.bind(this));
+  }
 
   // --- add an `is-transitioning class` for the backend devs to wait ---
 
@@ -64,7 +65,7 @@ Accordion.prototype = {
 
   openClass:      'is-open',
   closedClass:    'is-closed',
-  buttonElement:  '.js-trigger, .js-accordion-trigger', //needs to be the immediate child otherwise nested accordians won't work - #querySelector() should handle this by only selecting the first element
+  triggerElement:  '.js-trigger, .js-accordion-trigger', //needs to be the immediate child otherwise nested accordians won't work - #querySelector() should handle this by only selecting the first element
   bodyElement:    '.js-body, .js-accordion-body',       //needs to be the immediate child otherwise nested accordians won't work - #querySelector() should handle this by only selecting the first element
   isOpen: false,
 
@@ -94,8 +95,11 @@ Accordion.prototype = {
 
     this.el.classList.add(this.openClass)
     this.el.classList.remove(this.closedClass);
-    this.button.classList.add(this.openClass);
-    this.button.classList.remove(this.closedClass);
+
+    if (this.trigger) {
+      this.trigger.classList.add(this.openClass);
+      this.trigger.classList.remove(this.closedClass);
+    }
 
     self.emit('open');
 
@@ -113,8 +117,11 @@ Accordion.prototype = {
 
     this.el.classList.add(this.closedClass)
     this.el.classList.remove(this.openClass);
-    this.button.classList.add(this.closedClass);
-    this.button.classList.remove(this.openClass);
+
+    if (this.trigger) {
+      this.trigger.classList.add(this.closedClass);
+      this.trigger.classList.remove(this.openClass);
+    }
 
     self.emit('close');
 
