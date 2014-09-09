@@ -57,9 +57,16 @@ describe('Accordion', function(){
   });
 
   it('should toggle when clicking the trigger', function(){
-    var stub = sinon.stub(this.view, 'toggle');
+    expect(this.view.isOpen).to.equal(false);
     this.view.el.querySelector('.js-accordion-trigger').click();
-    expect(stub.called).to.equal(true);
+    expect(this.view.isOpen).to.equal(true);
+  });
+
+  it('should not toggle when clicking the trigger and the accordion is disabled', function(){
+    expect(this.view.isOpen).to.equal(false);
+    this.view.disabled(true);
+    this.view.el.querySelector('.js-accordion-trigger').click();
+    expect(this.view.isOpen).to.equal(false);
   });
 
   it('should open', function(){
@@ -73,7 +80,6 @@ describe('Accordion', function(){
   it('should close', function(done){
     var self = this;
     this.view.once('close', function(){
-      console.log(self.view.button);
       expect(self.view.button.classList.contains('is-open')).to.equal(false);
       expect(self.view.el.classList.contains('is-open')).to.equal(false);
       expect(self.view.button.classList.contains('is-closed')).to.equal(true);

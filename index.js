@@ -9,6 +9,8 @@ var Accordion = function(options){
 
   this.button.addEventListener('click', this._onTriggerClick.bind(this));
 
+  this._disabled = false;
+
   // --- add an `is-transitioning class` for the backend devs to wait ---
 
   var self = this;
@@ -66,6 +68,26 @@ Accordion.prototype = {
   bodyElement:    '.js-body, .js-accordion-body',       //needs to be the immediate child otherwise nested accordians won't work - #querySelector() should handle this by only selecting the first element
   isOpen: false,
 
+
+  /**
+   * Get whether the accordion is disabled
+   * @signature `accordion.disabled()`
+   * @returns   {Boolean}
+   *
+   * Set whether the accordion is disabled
+   * @signature `accordion.disabled(disabled)`
+   * @param     {Boolean} disabled
+   * @returns   {Accordion}
+   */
+  disabled: function() {
+    if (arguments.length === 0) {
+      return this._disabled;
+    } else {
+      this._disabled = arguments[0];
+      return this;
+    }
+  },
+
   open: function(){
     var self    = this;
     this.isOpen = true;
@@ -106,14 +128,15 @@ Accordion.prototype = {
 
   _onTriggerClick: function(event) {
     event.preventDefault();
-    this.toggle();
+    if (!this.disabled()) {
+      this.toggle();
+    }
   },
 
   toggle: function(){
     if(this.isOpen === true) {
       this.close();
-    }
-    else {
+    } else {
       this.open();
     }
     this.emit('toggle', this.id);
