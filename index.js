@@ -46,9 +46,12 @@ Accordion.create = function(selector, options) {
   var options = options || {};
 
   var parent    = options.context ? options.context : document;
-  var elements  = Array.prototype.slice.call(parent.querySelectorAll(selector), 0);
+  var elements  = parent.querySelectorAll(selector);
 
-  elements.forEach(function(element){
+  for (var i=0; i<elements.length; ++i) {
+
+    var element = elements[i];
+
     if(element.hasAttribute('data-accordion-loaded') === false) {
       var accordion = new Accordion({ el: element });
       element.setAttribute('data-accordion-loaded', true);
@@ -57,7 +60,9 @@ Accordion.create = function(selector, options) {
         options.afterEach.call(this, accordion);
       }
     }
-  });
+
+  }
+
   return items;
 };
 
