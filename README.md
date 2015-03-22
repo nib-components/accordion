@@ -5,7 +5,7 @@ Trigger show and hide of content.
 
 Used in conjunction with [nib-styles/accordion](https://github.com/nib-styles/accordion) styles component.
 
-    component install nib-styles/accordion
+    component install nib-components/accordion
 
 ##API
 
@@ -22,7 +22,7 @@ Used in conjunction with [nib-styles/accordion](https://github.com/nib-styles/ac
 Example markup
 
     <div class="accordion is-closed js-accordion">
-      <div class="js-trigger">Click me</div>
+      <div class="accordion__trigger js-trigger">Click me</div>
       <div class="accordion__body js-body">
           Show and hide me
       </div>
