@@ -1,10 +1,15 @@
 var emitter = require('emitter');
 var transition = require('transition-auto');
 
+/**
+ * @constructor
+ * @param   {Object}        options
+ * @param   {HTMLElement}   options.triggerEl   The trigger element
+ */
 var Accordion = function(options){
   this.el         = options.el;
   this.id         = this.el.getAttribute('data-accordion-id');
-  this.trigger    = this.el.querySelector(this.triggerElement);
+  this.trigger    = options.triggerEl || this.el.querySelector(this.triggerElement);
   this.body       = this.el.querySelector(this.bodyElement);
   this._disabled  = false;
 

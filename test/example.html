@@ -39,11 +39,13 @@
         <div class="accordion__body js-body"> Show and hide me </div>
     </div>
 
+    <button>Trigger</button>
+
     <script src="../build/build.js"></script>
     <script>
 
         var Accordion = require('accordion');
-        var accordion = Accordion.create('.js-accordion')[0];
+        var accordion = new Accordion({ el: document.querySelector('.js-accordion'), triggerEl: document.querySelector('button') });
 
         function printEvent(event) {
             console.log(event);
