@@ -95,8 +95,9 @@ Accordion.prototype = {
   },
 
   open: function(){
-    var self    = this;
-    this.isOpen = true;
+    var self       = this;
+    var isChanging = (this.isOpen != true);
+    this.isOpen    = true;
 
     this.el.classList.add(this.openClass)
     this.el.classList.remove(this.closedClass);
@@ -106,19 +107,20 @@ Accordion.prototype = {
       this.trigger.classList.remove(this.closedClass);
     }
 
-    self.emit('open');
+    self.emit('open', isChanging);
 
     transition(this.body, 'height', 'auto', function() {
       if(self.isOpen) {
-        self.emit('opened');
+        self.emit('opened', isChanging);
       }
     });
 
   },
 
   close: function(){
-    var self    = this;
-    this.isOpen = false;
+    var self       = this;
+    var isChanging = (this.isOpen != false);
+    this.isOpen    = false;
 
     this.el.classList.add(this.closedClass)
     this.el.classList.remove(this.openClass);
@@ -128,11 +130,11 @@ Accordion.prototype = {
       this.trigger.classList.remove(this.openClass);
     }
 
-    self.emit('close');
+    self.emit('close', isChanging);
 
     transition(this.body, 'height', 0, function() {
       if(!self.isOpen) {
-        self.emit('closed');
+        self.emit('closed', isChanging);
       }
     });
 
