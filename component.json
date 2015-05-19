@@ -1,6 +1,6 @@
 {
   "name": "accordion",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "scripts": ["index.js"],
   "dependencies": {
     "nib-components/utils": "0.0.1",
