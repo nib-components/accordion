@@ -1,7 +1,7 @@
 accordion
 =========
 
-Trigger show and hide of content.
+Trigger showing and hiding of content.
 
 Used in conjunction with [nib-styles/accordion](https://github.com/nib-styles/accordion) styles component.
 

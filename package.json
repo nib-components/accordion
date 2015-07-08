@@ -1,0 +1,23 @@
+{
+  "name": "@nib-components/accordion",
+  "version": "0.3.0",
+  "dependencies": {
+    "@nib-components/utils": "^0.0.1",
+    "component-emitter": "^1.1.3",
+    "@digitaledgeit/transition-auto": "^0.2.0"
+  },
+  "devDependencies": {
+    "@nib-styles/accordion": "^0.2.2",
+    "chai": "^3.0.0"
+  },
+  "browser": {
+    "emitter": "component-emitter",
+    "transition-auto": "@digitaledgeit/transition-auto"
+  },
+  "scripts": {
+    "test": "mochify",
+    "example.build": "npm run example.build.scripts & npm run example.build.styles",
+    "example.build.scripts": "browserify -r ./index.js:accordion -o build/build.js",
+    "example.build.styles": "sass-composer node_modules/@nib-styles/accordion/index.scss -o build/build.css"
+  }
+}

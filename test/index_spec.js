@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var Accordion = require('accordion');
+var Accordion = require('..');
 
 function createAccordionElement() {
 
