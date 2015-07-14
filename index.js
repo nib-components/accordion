@@ -79,7 +79,6 @@ Accordion.prototype = {
   bodyElement:    '.js-body, .js-accordion-body',       //needs to be the immediate child otherwise nested accordians won't work - #querySelector() should handle this by only selecting the first element
   isOpen: false,
 
-
   /**
    * Get whether the accordion is disabled
    * @signature `accordion.disabled()`
@@ -99,7 +98,8 @@ Accordion.prototype = {
     }
   },
 
-  open: function(){
+  open: function() {
+
     var self       = this;
     var isChanging = (this.isOpen != true);
     this.isOpen    = true;
@@ -115,14 +115,16 @@ Accordion.prototype = {
     self.emit('open', isChanging);
 
     transition(this.body, 'height', 'auto', function() {
+      self.disabled(false);
       if(self.isOpen) {
         self.emit('opened', isChanging);
       }
     });
 
+    return this;
   },
 
-  close: function(){
+  close: function() {
     var self       = this;
     var isChanging = (this.isOpen != false);
     this.isOpen    = false;
@@ -138,11 +140,13 @@ Accordion.prototype = {
     self.emit('close', isChanging);
 
     transition(this.body, 'height', 0, function() {
+      self.disabled(false);
       if(!self.isOpen) {
         self.emit('closed', isChanging);
       }
     });
 
+    return this;
   },
 
   _onTriggerClick: function(event) {
