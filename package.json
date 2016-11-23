@@ -1,5 +1,5 @@
 {
-  "name": "@nib-components/accordion",
+  "name": "@nib-components/accordion-legacy",
   "version": "0.3.1",
   "dependencies": {
     "@digitaledgeit/transition-auto": "^0.2.1",
