@@ -1,5 +1,5 @@
 {
-  "name": "accordion",
+  "name": "accordion-legacy",
   "version": "0.3.1",
   "scripts": ["index.js"],
   "dependencies": {
